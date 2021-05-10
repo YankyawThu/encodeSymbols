@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico"/>
+    <title>Encode symbols</title>
+    <style>
+        body {
+            background: #0B3E5B;
+        }
+        #origin_text {
+            width: 100%;
+            height: 220px;
+            padding: 10px 0px;
+            background: #DAEFFB;
+            border-radius: 5px;
+        }
+        #filter_text {
+            width: 100%;
+            height: 220px;
+            font-family: sans-serif;
+            padding: 10px 0px;
+            background: #13293d;
+            color: white;
+            border-radius: 5px;
+        }
+        .btn_layout {
+            text-align: center;
+            margin:5px 0px;
+        }
+        .btn {
+            cursor: pointer;
+            padding: 7px 20px;
+            border-radius: 3px;
+            border: none;
+            margin: 5px 3px;
+        }
+        .btn:focus {
+            background: #EDB458;
+        }
+        #origin_text:focus {
+            outline: none;
+        }
+        #filter_text:focus {
+            outline: none;
+            border: 3px solid #EDB458;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function filter_hash() {
+            var text = document.getElementById('origin_text').value;
+            var and = text.replaceAll("&" , "%26");
+            var hash = and.replaceAll("#" , " %23");
+            var last = hash.replaceAll("\"" , "%22");
+            document.getElementById('filter_text').value = last;        
+        }
+        function clear_text() {
+            document.getElementById('origin_text').value = '';
+            document.getElementById('filter_text').value = '';
+        }
+        function copy_text() {
+            var copyText = document.getElementById('filter_text');
+            copyText.select();
+            copyText.setSelectionRange(0, 9999);
+            document.execCommand("copy");
+        }
+    </script>
+    <div>
+        <textarea name="" id="origin_text" onmousemove="filter_hash()" placeholder="Type something..."></textarea>
+    </div>
+    <div class="btn_layout">
+        <button onclick="clear_text()" class="btn">Clear</button>
+        <button onclick="copy_text()" class="btn">Copy</button>
+    </div>
+    <div>
+        <textarea name="" id="filter_text"></textarea>
+    </div>
+</body>
+</html>

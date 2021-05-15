@@ -69,15 +69,17 @@
             document.execCommand("copy");
         }
     </script>
-    <div>
-        <textarea name="" id="origin_text" onmousemove="filter_hash()" placeholder="Type something..."></textarea>
-    </div>
-    <div class="btn_layout">
-        <button onclick="clear_text()" class="btn">Clear</button>
-        <button onclick="copy_text()" class="btn">Copy</button>
-    </div>
-    <div>
-        <textarea name="" id="filter_text"></textarea>
+    <div onmousemove="filter_hash()">
+        <div>
+            <textarea name="" id="origin_text"  placeholder="Type something..."></textarea>
+        </div>
+        <div class="btn_layout">
+            <button onclick="clear_text()" class="btn">Clear</button>
+            <button onclick="copy_text()" class="btn">Copy</button>
+        </div>
+        <div>
+            <textarea name="" id="filter_text"></textarea>
+        </div>
     </div>
 </body>
 </html>

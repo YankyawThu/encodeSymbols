@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="icon" href="favicon.ico"/>
     <title>Encode symbols</title>
     <style>
         body {
             background: #0B3E5B;
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 5px;
         }
         #origin_text {
             width: 100%;
             height: 220px;
-            padding: 10px 0px;
+            padding: 10px;
             background: #DAEFFB;
             border-radius: 5px;
         }
@@ -21,7 +24,7 @@
             width: 100%;
             height: 220px;
             font-family: sans-serif;
-            padding: 10px 0px;
+            padding: 10px;
             background: #13293d;
             color: white;
             border-radius: 5px;
@@ -31,13 +34,15 @@
             margin:5px 0px;
         }
         .btn {
+            background: white;
             cursor: pointer;
-            padding: 7px 20px;
+            padding: 5px 20px;
             border-radius: 3px;
             border: none;
             margin: 5px 3px;
         }
         .btn:focus {
+            outline: none;
             background: #EDB458;
         }
         #origin_text:focus {

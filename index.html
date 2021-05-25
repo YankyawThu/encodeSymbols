@@ -28,10 +28,6 @@
             color: white;
             border-radius: 5px;
         }
-        .btn_layout {
-            text-align: center;
-            margin:5px 0px;
-        }
         .btn {
             background: white;
             cursor: pointer;
@@ -58,7 +54,7 @@
         function filter_hash() {
             var text = document.getElementById('origin_text').value;
             var and = text.replaceAll("&" , "%26");
-            var hash = and.replaceAll("#" , "%0A%23");
+            var hash = and.replaceAll("#" , " %23");
             var last = hash.replaceAll("\"" , "%22");
             document.getElementById('filter_text').value = last;
             document.getElementById('count').innerHTML = 280 - text.length;
@@ -85,9 +81,9 @@
         <div>
             <textarea name="" id="origin_text" placeholder="Type something..."></textarea>
         </div>
-        <div class="btn_layout grid grid-cols-3">
-            <div class="self-center text-white pl-5 text-left">String: <span id="count"></span></div>
-            <div>
+        <div class="grid grid-cols-3 py-2">
+            <div class="self-center text-white pl-5 text-left">Text: <span id="count" class="text-xl"></span></div>
+            <div class="text-center">
                 <button onclick="clear_text()" class="btn">Clear</button>
                 <button onclick="copy_text()" class="btn">Copy</button>
             </div>

@@ -59,8 +59,9 @@
         function filter_hash() {
             var text = document.getElementById('origin_text').value;
             var and = text.replaceAll("&" , "%26");
-            var hash = and.replaceAll("#" , " %23");
+            var hash = and.replaceAll("#" , "%0A%23");
             var last = hash.replaceAll("\"" , "%22");
+            // document.getElementById('filter_text').value = encodeURIComponent(text);        
             document.getElementById('filter_text').value = last;        
         }
         function clear_text() {

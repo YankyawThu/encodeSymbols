@@ -60,8 +60,16 @@
             var and = text.replaceAll("&" , "%26");
             var hash = and.replaceAll("#" , "%0A%23");
             var last = hash.replaceAll("\"" , "%22");
-            document.getElementById('filter_text').value = last;        
+            document.getElementById('filter_text').value = last;
+            document.getElementById('count').innerHTML = 280 - text.length;
+
+            if(document.getElementById('count').innerHTML < 0) {
+                document.getElementById('count').style.color = "red";
+            }
+            else 
+                document.getElementById('count').style.color = "orange";
         }
+        
         function clear_text() {
             document.getElementById('origin_text').value = '';
             document.getElementById('filter_text').value = '';
@@ -73,13 +81,17 @@
             document.execCommand("copy");
         }
     </script>
-    <div onmousemove="filter_hash()">
+    <div onkeyup="filter_hash()" onmouseover="filter_hash()">
         <div>
-            <textarea name="" id="origin_text"  placeholder="Type something..."></textarea>
+            <textarea name="" id="origin_text" placeholder="Type something..."></textarea>
         </div>
-        <div class="btn_layout">
-            <button onclick="clear_text()" class="btn">Clear</button>
-            <button onclick="copy_text()" class="btn">Copy</button>
+        <div class="btn_layout grid grid-cols-3">
+            <div class="self-center text-white pl-5 text-left">String: <span id="count"></span></div>
+            <div>
+                <button onclick="clear_text()" class="btn">Clear</button>
+                <button onclick="copy_text()" class="btn">Copy</button>
+            </div>
+            <div></div>
         </div>
         <div>
             <textarea name="" id="filter_text"></textarea>

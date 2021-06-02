@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
     <link rel="icon" href="favicon.ico"/>
     <title>Encode symbols</title>
     <style>
@@ -47,14 +48,78 @@
             outline: none;
             border: 3px solid #EDB458;
         }
+        .ctc {
+            background: #0D4A6D;
+            color: #238bcc;
+            width: 100%;
+            padding: 10px 20px;
+            border-radius: 30px;
+        }
     </style>
 </head>
-<body>
+<body onload="getCookie('text')">
+    <div onmouseover="filter_hash()">
+        <div onkeyup="filter_hash()">
+            <textarea name="" id="origin_text" placeholder="Type something..."></textarea>
+        </div>
+        <div class="grid grid-cols-3 py-2">
+            <div class="text-white text-center self-center">Text:<span id="count" class="text-xl pl-1"></span></div>
+            <!-- <div class="flex flex-wrap justify-around">
+                <div class="text-white text-left py-2">Text:<span id="count" class="text-xl pl-1"></span></div>
+                <div class=" p-2">
+                    <div class="rounded-lg text-gray-500" style="background: #C1CFDA;">
+                        <input type="text" class="bg-transparent rounded-lg p-1 w-24 md:w-auto focus:outline-none">
+                        <i class="far fa-edit p-1"></i>
+                    </div>
+                </div>
+            </div> -->
+            <div class="text-center">
+                <button onclick="clear_text()" class="btn">Clear</button>
+                <button onclick="copy_text()" class="btn">Copy</button>
+            </div>
+            <div class="px-5 text-center">
+                <input onclick="ctc()" id="ctc" type="text" class="ctc shadow focus:outline-none">
+                <button onclick="setCookie('text')" class="my-1 px-2 focus:outline-none text-white">Save</button>
+                <button onclick="deleteCookie('text')" class="my-1 px-2 focus:outline-none text-white">Delete</button>
+            </div>
+        </div>
+        <div>
+            <textarea name="" id="filter_text"></textarea>
+        </div>
+    </div>
+
     <script>
+        //cookie
+        function setCookie(cname) {
+            document.cookie = cname + "=" + document.getElementById('ctc').value + ";";
+            location.reload();
+        }
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for(var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                   document.getElementById("ctc").value = c.substring(name.length, c.length);
+                }
+            }
+        }
+        function deleteCookie(cname) {
+            document.cookie = cname + "=; expires=Thu, 01 Jan 1997 00:00:00 UTC; path=/;";
+            location.reload();
+        }
+        //end cookie
+
         function filter_hash() {
             var text = document.getElementById('origin_text').value;
-            var and = text.replaceAll("&" , "%26");
-            var hash = and.replaceAll("#" , " %23");
+            var percent = text.replaceAll("%" , "%25");
+            var bl = percent.replace("*" , "%0A%0A%23");
+            var and = bl.replaceAll("&" , "%26");
+            var hash = and.replaceAll("#" , "%23");
             var last = hash.replaceAll("\"" , "%22");
             document.getElementById('filter_text').value = last;
             document.getElementById('count').innerHTML = 280 - text.length;
@@ -76,22 +141,12 @@
             copyText.setSelectionRange(0, 9999);
             document.execCommand("copy");
         }
+        function ctc() {
+            var copyText = document.getElementById('ctc');
+            copyText.select();
+            copyText.setSelectionRange(0, 9999);
+            document.execCommand("copy");
+        }
     </script>
-    <div onkeyup="filter_hash()" onmouseover="filter_hash()">
-        <div>
-            <textarea name="" id="origin_text" placeholder="Type something..."></textarea>
-        </div>
-        <div class="grid grid-cols-3 py-2">
-            <div class="self-center text-white pl-5 text-left">Text: <span id="count" class="text-xl"></span></div>
-            <div class="text-center">
-                <button onclick="clear_text()" class="btn">Clear</button>
-                <button onclick="copy_text()" class="btn">Copy</button>
-            </div>
-            <div></div>
-        </div>
-        <div>
-            <textarea name="" id="filter_text"></textarea>
-        </div>
-    </div>
 </body>
 </html>

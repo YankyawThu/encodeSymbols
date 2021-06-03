@@ -79,8 +79,8 @@
             </div>
             <div class="px-5 text-center">
                 <input onclick="ctc()" id="ctc" type="text" class="ctc shadow focus:outline-none">
-                <button onclick="setCookie('text')" class="my-1 px-2 focus:outline-none text-white">Save</button>
-                <button onclick="deleteCookie('text')" class="my-1 px-2 focus:outline-none text-white">Delete</button>
+                <button onclick="setCookie('text')" class="my-1 px-2 focus:outline-none text-white">Saved</button>
+                <!-- <button onclick="deleteCookie('text')" class="my-1 px-2 focus:outline-none text-white">Delete</button> -->
             </div>
         </div>
         <div>
@@ -108,20 +108,25 @@
                 }
             }
         }
-        function deleteCookie(cname) {
-            document.cookie = cname + "=; expires=Thu, 01 Jan 1997 00:00:00 UTC; path=/;";
-            location.reload();
-        }
+        // function deleteCookie(cname) {
+        //     document.cookie = cname + "=; expires=Thu, 01 Jan 1997 00:00:00 UTC; path=/;";
+        //     location.reload();
+        // }
         //end cookie
 
         function filter_hash() {
             var text = document.getElementById('origin_text').value;
-            var percent = text.replaceAll("%" , "%25");
-            var bl = percent.replace("*" , "%0A%0A%23");
-            var and = bl.replaceAll("&" , "%26");
-            var hash = and.replaceAll("#" , "%23");
-            var last = hash.replaceAll("\"" , "%22");
-            document.getElementById('filter_text').value = last;
+            var sign = Array ('%' , '#Whats' , '\"' , '&' , '+' , '#');
+            for( var i = 0 ; i < sign.length ; i++) {
+                if(sign[i] == '#Whats') {
+                    var fix = text.replace(sign[i] , '%0A%0A%23Whats');
+                }
+                else
+                    var fix = text.replaceAll(sign[i], encodeURIComponent(sign[i]));
+
+                text = fix;
+            }
+            document.getElementById('filter_text').value = text;
             document.getElementById('count').innerHTML = 280 - text.length;
 
             if(document.getElementById('count').innerHTML < 0) {

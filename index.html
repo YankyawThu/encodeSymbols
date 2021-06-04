@@ -127,7 +127,7 @@
                 text = fix;
             }
             document.getElementById('filter_text').value = text;
-            document.getElementById('count').innerHTML = 280 - text.length;
+            document.getElementById('count').innerHTML = 280 - (document.getElementById('origin_text').value).length;
 
             if(document.getElementById('count').innerHTML < 0) {
                 document.getElementById('count').style.color = "red";
